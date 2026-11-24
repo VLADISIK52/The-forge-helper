@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="ru" class="dark">
 <head>
@@ -122,7 +121,7 @@
         </div>
         <div class="px-3 py-2 rounded-xl bg-slate-900/90 border border-slate-800 text-center min-w-[74px]">
           <div class="text-[10px] text-slate-400 uppercase font-semibold">Кирок</div>
-          <div class="text-base font-extrabold text-sky-400">22</div>
+          <div class="text-base font-extrabold text-sky-400">28</div>
         </div>
         <div class="px-3 py-2 rounded-xl bg-slate-900/90 border border-slate-800 text-center min-w-[74px]">
           <div class="text-[10px] text-slate-400 uppercase font-semibold">Рас</div>
@@ -242,8 +241,8 @@
       <div class="glass rounded-2xl p-4 space-y-4">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <h2 class="text-base font-bold text-white">Все кирки в игре (22 шт.)</h2>
-            <p class="text-xs text-slate-400">Оптимальный путь: Bronze → Gold → Platinum → Cobalt → Titanium → Lightite → Arcane → Aqua → Snow → Void → Prismatic</p>
+            <h2 class="text-base font-bold text-white">Все кирки в игре (28 шт.)</h2>
+            <p class="text-xs text-slate-400">Оптимальный путь: Bronze → Gold → Platinum → Cobalt → Titanium → Lightite → Arcane → Aqua → Snow → Void → Prismatic → Bamboo → Wolf → Oni → Kitsune</p>
           </div>
           <div class="flex gap-1.5" id="pick-tier-filters">
             <button data-t="ALL" class="pt-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-orange-500 text-white">Все</button>
@@ -259,6 +258,30 @@
 
     <!-- TAB 4: RACES & ABILITIES -->
     <section id="tab-races" class="tab-panel hidden anim-in space-y-4">
+      <!-- Promo Codes Block -->
+      <div class="glass rounded-2xl p-4 space-y-3 border border-emerald-500/25">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <h2 class="text-base font-bold text-white">🎁 Промокоды The Forge (Ноябрь 2026)</h2>
+            <p class="text-xs text-slate-400">Вводить в игре: Шестерёнка (Settings) → поле «Type Here»</p>
+          </div>
+          <span id="copy-toast" class="hidden text-xs px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-semibold">Скопировано!</span>
+        </div>
+        <div id="promo-codes-list" class="grid grid-cols-1 sm:grid-cols-3 gap-2.5"></div>
+      </div>
+
+      <!-- Race Synergy Picker -->
+      <div class="glass rounded-2xl p-4 space-y-3 border border-purple-500/25">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <h2 class="text-base font-bold text-white">⚡ Синергия: Раса + Оружие + Броня</h2>
+            <p class="text-xs text-slate-400">Выберите вашу расу — покажу идеальные руды под её пассивки</p>
+          </div>
+          <select id="synergy-race-select" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white font-semibold"></select>
+        </div>
+        <div id="synergy-output" class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs"></div>
+      </div>
+
       <div class="glass rounded-2xl p-4 space-y-4">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
@@ -280,10 +303,22 @@
 
     <!-- TAB 5: META RECIPES & FARM PLANNER -->
     <section id="tab-meta" class="tab-panel hidden anim-in space-y-4">
-      <div class="glass rounded-2xl p-4 space-y-3">
-        <div>
-          <h2 class="text-base font-bold text-white">Топовые сборки W1–W4 и план фарма</h2>
-          <p class="text-xs text-slate-400">Сверяет с вашими выбранными рудами из первой вкладки и показывает, что осталось добыть</p>
+      <div class="glass rounded-2xl p-4 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <h2 class="text-base font-bold text-white">Топовые сборки W1–W4 и план фарма (40 рецептов)</h2>
+            <p class="text-xs text-slate-400">Сверяет с вашими выбранными рудами и показывает средний множитель</p>
+          </div>
+          <div class="flex flex-wrap gap-1.5" id="meta-filters">
+            <button data-mw="ALL" class="mw-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-orange-500 text-white">Все</button>
+            <button data-mw="W1" class="mw-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-300">W1</button>
+            <button data-mw="W2" class="mw-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-300">W2</button>
+            <button data-mw="W3" class="mw-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-300">W3</button>
+            <button data-mw="W4" class="mw-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-300">W4</button>
+            <button data-mg="armor" class="mg-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-sky-300">🛡️ Броня</button>
+            <button data-mg="weapon" class="mg-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-rose-300">⚔️ Оружие</button>
+            <button data-mg="set" class="mg-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-amber-300">✨ Одинаковая броня (Сеты)</button>
+          </div>
         </div>
         <div id="meta-list" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
       </div>
@@ -347,12 +382,12 @@
       const col = RARITY_HEX[o.r] || "#94a3b8";
       const n = o.name.toLowerCase();
       if (n.includes("heart") || n.includes("orb") || n.includes("eye") || n.includes("cat")) {
-        return `<svg width="${size}" height="${size}" viewBox="0 0 32 32" class="shrink-0"><circle cx="16" cy="16" r="14" fill="${col}" fill-opacity="0.12"/><path d="M16 26s-8.5-5.6-10-11C4.8 10.8 7.5 6.8 11.5 6.8c2.2 0 3.7 1.2 4.5 2.5.8-1.3 2.3-2.5 4.5-2.5 4 0 6.7 4 5.5 8.2-1.5 5.4-10 11-10 11z" fill="${col}" fill-opacity="0.35" stroke="${col}" stroke-width="1.8"/><path d="M11 10.5c1.2-1.2 2.8-1 3.5 0" stroke="#fff" stroke-width="1.3" stroke-linecap="round" opacity="0.7"/><circle cx="16" cy="15.5" r="2.8" fill="${col}"/></svg>`;
+        return `<svg width="${size}" height="${size}" viewBox="0 0 32 32" class="shrink-0"><circle cx="16" cy="16" r="14" fill="${col}" fill-opacity="0.12"/><path d="M16 26s-8.5-5.6-10-11C4.8 10.8 7.5 6.8 11.5 6.8c2.2 0 3.7 1.2 4.5 2.5.8-1.3 2.3-2.5 4.5-2.5 4 0 6.7 4 5.5 8.2-1.5 5.4-10 11-10 11z" fill="${col}" fill-opacity="0.35" stroke="${col}" stroke-width="1.8"/><circle cx="16" cy="15.5" r="2.8" fill="${col}"/></svg>`;
       }
       if (n.includes("crystal") || n.includes("ice") || n.includes("void") || n.includes("star") || n.includes("onyx") || n.includes("ruby") || n.includes("diamond")) {
-        return `<svg width="${size}" height="${size}" viewBox="0 0 32 32" class="shrink-0"><circle cx="16" cy="16" r="14" fill="${col}" fill-opacity="0.10"/><polygon points="16,3 25,11 21,28 11,28 7,11" fill="${col}" fill-opacity="0.3" stroke="${col}" stroke-width="1.8"/><polygon points="16,3 25,11 16,15 7,11" fill="#fff" fill-opacity="0.18"/><polyline points="16,3 16,28" stroke="${col}" stroke-width="1.2" opacity="0.8"/></svg>`;
+        return `<svg width="${size}" height="${size}" viewBox="0 0 32 32" class="shrink-0"><circle cx="16" cy="16" r="14" fill="${col}" fill-opacity="0.10"/><polygon points="16,3 25,11 21,28 11,28 7,11" fill="${col}" fill-opacity="0.3" stroke="${col}" stroke-width="1.8"/><polygon points="16,3 25,11 16,15 7,11" fill="#fff" fill-opacity="0.18"/></svg>`;
       }
-      return `<svg width="${size}" height="${size}" viewBox="0 0 32 32" class="shrink-0"><circle cx="16" cy="16" r="14" fill="${col}" fill-opacity="0.10"/><polygon points="10,6 22,6 27,15 21,26 11,26 5,15" fill="${col}" fill-opacity="0.28" stroke="${col}" stroke-width="1.8"/><polygon points="10,6 22,6 19,12 13,12" fill="#fff" fill-opacity="0.2"/><polygon points="12,11 20,11 22,16 16,22 10,16" fill="${col}" fill-opacity="0.45"/></svg>`;
+      return `<svg width="${size}" height="${size}" viewBox="0 0 32 32" class="shrink-0"><circle cx="16" cy="16" r="14" fill="${col}" fill-opacity="0.10"/><polygon points="10,6 22,6 27,15 21,26 11,26 5,15" fill="${col}" fill-opacity="0.28" stroke="${col}" stroke-width="1.8"/><polygon points="12,11 20,11 22,16 16,22 10,16" fill="${col}" fill-opacity="0.45"/></svg>`;
     }
 
     function weaponIconSVG(kind, size = 30) {
@@ -494,6 +529,12 @@
     ];
 
     const PICKAXES = [
+      { name: "Kitsune Pickaxe", tier: "S", price: "$3,330,000", power: 1000, speed: "+10%", luck: "+85%", runes: 3, loc: "W4 — Crimson Sakura Isles" },
+      { name: "Oni Pickaxe", tier: "S", price: "$2,666,666", power: 888, speed: "-10%", luck: "+82%", runes: 3, loc: "W4 — Crimson Sakura Isles" },
+      { name: "Holy Pickaxe", tier: "A", price: "$1,850,000", power: 740, speed: "+5%", luck: "+74%", runes: 3, loc: "W4 — Crimson Sakura Isles" },
+      { name: "Wolf Pickaxe", tier: "A", price: "$1,300,000", power: 600, speed: "+15%", luck: "+70%", runes: 2, loc: "W4 — Crimson Sakura Isles" },
+      { name: "Sakura Pickaxe", tier: "B", price: "$950,000", power: 480, speed: "-5%", luck: "+65%", runes: 2, loc: "W4 — Crimson Sakura Isles" },
+      { name: "Bamboo Pickaxe", tier: "B", price: "$675,000", power: 370, speed: "+5%", luck: "+60%", runes: 1, loc: "W4 — Crimson Sakura Isles" },
       { name: "Prismatic Pickaxe", tier: "S", price: "$2,000,000", power: 650, speed: "+20%", luck: "+72%", runes: 4, loc: "W3 — Underwater Cave" },
       { name: "Christmas Pickaxe", tier: "S", price: "3,600 XMas T.", power: 560, speed: "0%", luck: "+72%", runes: 0, loc: "W3 — Santa's Shop" },
       { name: "Void Pickaxe", tier: "S", price: "$1,350,000", power: 550, speed: "+5%", luck: "+68%", runes: 3, loc: "W3 — Miner Fred" },
@@ -532,6 +573,28 @@
       { name: "Elf", tier: "D", rarity: "Uncommon", chance: "15%", traits: "Superior Genes (+15% стамины) • Glorious (+7% удачи)" },
       { name: "Zombie", tier: "D", rarity: "Uncommon", chance: "14%", traits: "Rotten (-25% HP) • Mutated Genes (+2% реген HP каждые 5с) • Absorb (15% шанс превратить урон в лечение)" },
       { name: "Human", tier: "D", rarity: "Common", chance: "Базовая", traits: "Стартовая сбалансированная раса без особых пассивок" }
+    ];
+
+    const RACE_SYNERGY = {
+      "Angel": { weapon: "Катана / Прямой меч (быстрые удары под Smite)", wOres: "Onyx Ore + Sun Stone / Meteorite (крит + взрывы)", aOres: "Velchire + Sanctis + Lightite (макс. скорость и рывок)" },
+      "Demon": { weapon: "Катана / Кастеты (под +20% ск. атаки)", wOres: "Fireite + Sun Stone + Demonite (усиление огня +20%!)", aOres: "Demonite + Darkryte + Heavenly Orb (обратный ожог + уклон)" },
+      "Dragonborn": { weapon: "Двуручник / Катана", wOres: "Magmaite + Fireite + Sun Stone (двойной ожог)", aOres: "Etherealite + Duranite + Azuryxite (+HP и танковость)" },
+      "Golem": { weapon: "Колоссал / Секира (под +15% ск. тяжёлого оружия)", wOres: "Golem Heart + Iceite + Gargantuan (тяжёлый крит и замедление)", aOres: "Duranite + Obsidian + Azuryxite (макс. снижение урона)" },
+      "Minotaur": { weapon: "Двуручник / Катана (под Ярость <50% HP)", wOres: "Sealed Curse Ore + Stolen Heart + Crimsonite (берсерк + отхил)", aOres: "Heart Of The Island + Etherealite (синергия при низком HP)" },
+      "Dwarf": { weapon: "Любое оружие (бонус +5% к качеству ковки!)", wOres: "Onyx Ore + Meteorite Ore (макс. урон с высоким качеством)", aOres: "Lucky Cat Ore + Etherealite (фарм руд + живучесть)" },
+      "Shadow": { weapon: "Кинжал / Катана (под +10% ск. атаки)", wOres: "Onyx Ore + Voidstar + Stolen Heart (компенсация -10% HP отхилом)", aOres: "Darkryte + Velchire (двойной шанс уклонения + скорость)" },
+      "Undead": { weapon: "Катана / Прямой меч", wOres: "Stolen Heart + Magmaite (отхил под низкое HP)", aOres: "Heavenly Orb + Azuryxite + Duranite (отражение урона)" },
+      "Orc": { weapon: "Двуручник / Прямой меч (+10% физ. урона)", wOres: "Crimsonite + Eye Ore + Ruby (упор в чистый физ. урон)", aOres: "Obsidian + Mythril + Cyanite Jade (жир и защита)" },
+      "Goblin": { weapon: "Кинжал (+10% ск. кинжалов) — топ для покупки кирок (-12% цена!)", wOres: "Rivalite + Magmaite / Tiger's Eye (быстрые криты)", aOres: "Duquack + Blue Gem Quill + Lucky Cat (скорость и фарм)" },
+      "Elf": { weapon: "Катана / Кастеты", wOres: "Rivalite + Fireite (стабильный фарм)", aOres: "Lucky Cat + Sanctis (удача и выносливость)" },
+      "Zombie": { weapon: "Любое с отхилом", wOres: "Stolen Heart + Crimsonite (макс. вампиризм)", aOres: "Heavenly Orb + Etherealite (компенсация -25% HP регеном)" },
+      "Human": { weapon: "Прямой меч / Катана", wOres: "Aite + Poopite (старт) -> Rivalite + Eye Ore (W2)", aOres: "Obsidian + Mythril (универсальная защита)" }
+    };
+
+    const PROMO_CODES = [
+      { code: "AIDASAYSSORRY", reward: "10–15 Race Rerolls", status: "Активен" },
+      { code: "SORRYFORBUGS!!!", reward: "10–15 Race Rerolls (три «!»)", status: "Активен" },
+      { code: "SORRYFORSHUTDOWNN!", reward: "15 Race Rerolls (две «N» и «!»)", status: "Проверить" }
     ];
 
     const WEAPON_GALLERY = [
@@ -605,12 +668,55 @@
     ];
 
     const META_BUILDS = [
-      { title: "W2 | Катана DPS (15 руд)", gear: "weapon", items: [["Magmaite", 5], ["Fireite", 5], ["Eye Ore", 3], ["Rivalite", 2]], note: "AoE-взрывы, поджог и +20% крита" },
-      { title: "W2 | Тяж. Броня Танк (35 руд)", gear: "armor", items: [["Darkryte", 11], ["Demonite", 11], ["Obsidian", 8], ["Lightite", 5]], note: "Уклонение 15%, ожог врагов и +30% защиты" },
-      { title: "W3 | Катана Пика (15 руд)", gear: "weapon", items: [["Iceite", 5], ["Crimsonite", 5], ["Voidstar", 5]], note: "Заморозка, +20% физ. урона и +33% крита" },
-      { title: "W3 | Вампир Колоссал (46 руд)", gear: "weapon", items: [["Stolen Heart", 14], ["Golem Heart", 14], ["Iceite", 10], ["Gargantuan", 8]], note: "Отхил 7%, 40% крита и 25x множитель" },
-      { title: "W4 | Оружие Сакуры (15 руд)", gear: "weapon", items: [["Meteorite Ore", 5], ["Sun Stone Ore", 5], ["Onyx Ore", 5]], note: "60% взрыв, сильный ожог и +35% крита" },
-      { title: "W4 | Броня Сакуры (35 руд)", gear: "armor", items: [["Heavenly Orb Ore", 11], ["Azuryxite Ore", 11], ["Cyanite Jade Ore", 8], ["Lucky Cat Ore", 5]], note: "40% отражение урона, реген и удача" }
+      // === WORLD 1 ===
+      { w: "W1", title: "W1 | Стартовый меч (8 руд)", gear: "weapon", items: [["Aite", 4], ["Bananite", 4]], note: "Лучший старт без редких миров для быстрого фарма" },
+      { w: "W1", title: "W1 | Бюджетный меч из золота (8 руд)", gear: "weapon", items: [["Cardboardite", 4], ["Gold", 4]], note: "Если не падает Aite — легко фармится в Boulders" },
+      { w: "W1", title: "W1 | Ядовитый кинжал (4 руды)", gear: "weapon", items: [["Poopite", 2], ["Aite", 2]], note: "Активирует яд вокруг и страх при HP < 35%" },
+      { w: "W1", title: "W1 | Стартовый нагрудник (10 руд)", gear: "armor", items: [["Poopite", 4], ["Aite", 3], ["Bananite", 3]], note: "Прочная стартовая броня для перехода в Мир 2" },
+      { w: "W1", title: "W1 | Эпик-броня старта (15 руд)", gear: "armor", items: [["Poopite", 5], ["Aite", 5], ["Bananite", 5]], note: "Средний шлем/поножи с ядом из эпиков W1" },
+
+      // === WORLD 2 ===
+      { w: "W2", title: "W2 | Эпик-катана Кристаллов (15 руд)", gear: "weapon", items: [["Rivalite", 5], ["Blue Crystal", 5], ["Crimson Crystal", 5]], note: "Только эпики: +20% крита и 3.3x множитель" },
+      { w: "W2", title: "W2 | Бюджетная катана (15 руд)", gear: "weapon", items: [["Rivalite", 5], ["Ruby", 5], ["Emerald", 5]], note: "Отличный урон и +20% крита без Volcanic-руд" },
+      { w: "W2", title: "W2 | Эпик-секира (37 руд)", gear: "weapon", items: [["Rivalite", 13], ["Ruby", 12], ["Emerald", 12]], note: "Мощное тяжёлое оружие без единой легендарки" },
+      { w: "W2", title: "W2 | Катана DPS (15 руд)", gear: "weapon", items: [["Magmaite", 5], ["Fireite", 5], ["Eye Ore", 3], ["Rivalite", 2]], note: "AoE-взрывы, поджог, +15% урона и +20% крита" },
+      { w: "W2", title: "W2 | Эпик-шлем Танк (27 руд)", gear: "armor", items: [["Obsidian", 10], ["Cuprite", 9], ["Emerald", 8]], note: "+30% защиты только из эпических руд W2" },
+      { w: "W2", title: "W2 | Броня Самурая (19 руд)", gear: "armor", items: [["Obsidian", 6], ["Mythril", 5], ["Uranium", 5], ["Eye Ore", 3]], note: "+45% защиты, AoE-урон по врагам и +15% к урону" },
+      { w: "W2", title: "W2 | Тяж. Броня Танк-Стена (35 руд)", gear: "armor", items: [["Obsidian", 12], ["Mythril", 11], ["Ruby", 6], ["Cuprite", 6]], note: "+45% защиты и высокий множитель без мификов" },
+      { w: "W2", title: "W2 | Гоблин-броня Скорость (27 руд)", gear: "armor", items: [["Arcane Crystal", 10], ["Lightite", 9], ["Rainbow Crystal", 8]], note: "Огромный множитель из Goblin Cave + скорость бега" },
+      { w: "W2", title: "W2 | Топ Броня Уклонение (35 руд)", gear: "armor", items: [["Darkryte", 11], ["Demonite", 11], ["Obsidian", 8], ["Lightite", 5]], note: "Уклонение 15%, ожог врагов, +30% защиты и скорость" },
+
+      // === WORLD 3 ===
+      { w: "W3", title: "W3 | Эпик-катана Яда (15 руд)", gear: "weapon", items: [["Malachite", 5], ["Crimsonite", 5], ["Galestor", 5]], note: "Только эпики The Peak: +20% урона и яд (33% шанс)" },
+      { w: "W3", title: "W3 | Катана Пика (15 руд)", gear: "weapon", items: [["Iceite", 5], ["Crimsonite", 5], ["Voidstar", 5]], note: "Заморозка, +20% физ. урона и +33% крита" },
+      { w: "W3", title: "W3 | Вампир Колоссал (46 руд)", gear: "weapon", items: [["Stolen Heart", 14], ["Golem Heart", 14], ["Iceite", 10], ["Gargantuan", 8]], note: "Отхил 7%, 40% крита и огромный множитель" },
+      { w: "W3", title: "W3 | Эпик-нагрудник Паучий (35 руд)", gear: "armor", items: [["Graphite", 12], ["Tide Carve", 12], ["Larimar", 11]], note: "Бюджетная броня W3: +5% HP и снижение урона" },
+      { w: "W3", title: "W3 | Эпик-шлем Мороза (27 руд)", gear: "armor", items: [["Mosasaursit", 10], ["Frost Fossil", 9], ["Tide Carve", 8]], note: "+35% HP и +17.5% физ. урона без мификов" },
+      { w: "W3", title: "W3 | Броня Лёд и Скорость (35 руд)", gear: "armor", items: [["Velchire", 11], ["Sanctis", 11], ["Graphite", 8], ["Frost Fossil", 5]], note: "+20% скорости, +18% выносливости и снижение урона" },
+      { w: "W3", title: "W3 | Броня Бессмертия (29 руд)", gear: "armor", items: [["Duranite", 10], ["Etherealite", 10], ["Mosasaursit", 9]], note: "Максимум HP (+90% суммарно) и защита для боссов" },
+      { w: "W3", title: "W3 | Топ Броня Живучести (35 руд)", gear: "armor", items: [["Etherealite", 11], ["Duranite", 11], ["Heart Of The Island", 8], ["Velchire", 5]], note: "+55% HP, снижение урона, берсерк и скорость" },
+
+      // === WORLD 4 ===
+      { w: "W4", title: "W4 | Эпик-катана Тигра (15 руд)", gear: "weapon", items: [["Tiger's Eye Ore", 5], ["Magit Ore", 5], ["Shikanite Ore", 5]], note: "Только эпики Bamboo Cave: +ск. атаки и +5% урона" },
+      { w: "W4", title: "W4 | Эпик-катана Проклятия (15 руд)", gear: "weapon", items: [["Sealed Curse Ore", 5], ["Heat Steel Ore", 5], ["Sakuranite Ore", 5]], note: "+30% физ. урона и Берсерк без мификов" },
+      { w: "W4", title: "W4 | Двуручник Бамбука (20 руд)", gear: "weapon", items: [["Onyx Ore", 7], ["Tiger's Eye Ore", 7], ["Magit Ore", 6]], note: "+35% крита, +15% крит. урона и скорость атаки" },
+      { w: "W4", title: "W4 | Катана Сакуры (15 руд)", gear: "weapon", items: [["Meteorite Ore", 5], ["Sun Stone Ore", 5], ["Onyx Ore", 5]], note: "60% взрыв, сильный ожог 5с и +35% крита" },
+      { w: "W4", title: "W4 | Колоссал Берсерка (46 руд)", gear: "weapon", items: [["Meteorite Ore", 14], ["Sealed Curse Ore", 12], ["Onyx Ore", 10], ["Sun Stone Ore", 10]], note: "+30% физ. урона, Берсерк, взрывы и криты" },
+      { w: "W4", title: "W4 | Эпик-шлем Бамбука (24 руды)", gear: "armor", items: [["Cyanite Jade Ore", 8], ["Earthite Ore", 8], ["Magit Ore", 8]], note: "+30% HP из доступных руд Bamboo Cave" },
+      { w: "W4", title: "W4 | Эпик-броня Самурая W4 (19 руд)", gear: "armor", items: [["Duquack Ore", 7], ["Blue Gem Quill Ore", 6], ["Wraith Ore", 6]], note: "Высокая мобильность: прыжок + дальность рывка" },
+      { w: "W4", title: "W4 | Эпик-нагрудник Сакуры (35 руд)", gear: "armor", items: [["Cyanite Jade Ore", 12], ["Blue Gem Quill Ore", 12], ["Heat Steel Ore", 11]], note: "Только эпики: +20% HP, рывки и множитель ~9.6x" },
+      { w: "W4", title: "W4 | Броня Проклятого Воина (35 руд)", gear: "armor", items: [["Sealed Curse Ore", 11], ["Azuryxite Ore", 12], ["Heat Steel Ore", 12]], note: "+30% урона, Берсерк и 40% шанс отразить 30% урона" },
+      { w: "W4", title: "W4 | Броня Фарма и Удачи (27 руд)", gear: "armor", items: [["Lucky Cat Ore", 9], ["Duquack Ore", 9], ["Blue Gem Quill Ore", 9]], note: "Бонус удачи + добычи, прыжок и дальность рывка" },
+      { w: "W4", title: "W4 | Топ Броня Сакуры (35 руд)", gear: "armor", items: [["Heavenly Orb Ore", 11], ["Azuryxite Ore", 11], ["Cyanite Jade Ore", 8], ["Lucky Cat Ore", 5]], note: "40% отражение урона, реген HP, +HP и удача" },
+      { w: "W4", title: "W4 | Броня Неуязвимости (35 руд)", gear: "armor", items: [["Heavenly Orb Ore", 11], ["Azuryxite Ore", 11], ["Sealed Curse Ore", 7], ["Lucky Cat Ore", 6]], note: "Отражение 40%, реген, +30% урона и удача" }
+,
+      // === ОДИНАКОВАЯ БРОНЯ (СТИЛЬНЫЕ СЕТЫ) ===
+      { w: "W2", title: "Сет W2 | Кровавый Демон (35 руд)", gear: "set", items: [["Darkryte", 14], ["Demonite", 14], ["Obsidian", 7]], note: "Единый тёмно-алый стиль на шлем/поножи/нагрудник: уклонение, ожог и защита" },
+      { w: "W2", title: "Сет W2 | Неоновый Кристалл (27 руд)", gear: "set", items: [["Arcane Crystal", 14], ["Blue Crystal", 13]], note: "Светящийся голубой сет из Goblin Cave с высоким множителем" },
+      { w: "W3", title: "Сет W3 | Ледяной Рыцарь (35 руд)", gear: "set", items: [["Etherealite", 17], ["Velchire", 11], ["Sanctis", 7]], note: "Цельный бело-голубой ледяной сет: +35% HP, +20% скорости и стамина" },
+      { w: "W3", title: "Сет W3 | Багровый Ворон (35 руд)", gear: "set", items: [["Duranite", 17], ["Heart Of The Island", 11], ["Evil Eye", 7]], note: "Мрачный рубиновый сет с огромным HP, снижением урона и берсерком" },
+      { w: "W4", title: "Сет W4 | Бамбуковый Нефрит (35 руд)", gear: "set", items: [["Cyanite Jade Ore", 18], ["Blue Gem Quill Ore", 17]], note: "Стильный бирюзовый эпик-сет без мификов: +20% HP, прыжок и рывок" },
+      { w: "W4", title: "Сет W4 | Небесная Сакура (35 руд)", gear: "set", items: [["Heavenly Orb Ore", 14], ["Azuryxite Ore", 14], ["Sakuranite Ore", 7]], note: "Элитный золотисто-лазурный сет 4-го мира: реген, +HP и 40% отражения" }
     ];
 
     const CLASS_REFERENCE = [
@@ -631,7 +737,9 @@
       pickerWorld: "ALL",
       pickerSearch: "",
       pickTier: "ALL",
-      raceTier: "ALL"
+      raceTier: "ALL",
+      metaWorld: "ALL",
+      metaGear: "ALL"
     };
 
     try {
@@ -947,7 +1055,7 @@
         <div class="p-3.5 rounded-xl bg-slate-900/85 border border-slate-800 hover:border-orange-500/40 transition space-y-2">
           <div class="flex items-center justify-between gap-2">
             <div class="flex items-center gap-2.5 min-w-0">
-              ${pickaxeIconSVG(p.tier, 30)}
+              ${pickaxeIconSVG(p.tier, 32)}
               <div class="min-w-0">
                 <div class="text-sm font-bold text-white truncate">${p.name}</div>
                 <div class="text-[11px] text-amber-400 font-semibold">${p.price}</div>
@@ -964,6 +1072,54 @@
           <div class="text-[11px] text-slate-400">📍 ${p.loc}</div>
         </div>
       `).join("");
+      renderPromoAndSynergy();
+    }
+
+    function copyTextSafe(txt) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(txt).catch(() => {});
+      } else {
+        const ta = document.createElement("textarea");
+        ta.value = txt;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand("copy"); } catch (e) {}
+        document.body.removeChild(ta);
+      }
+      const toast = document.getElementById("copy-toast");
+      if (toast) {
+        toast.classList.remove("hidden");
+        clearTimeout(window._ctimer);
+        window._ctimer = setTimeout(() => toast.classList.add("hidden"), 1800);
+      }
+    }
+
+    function renderPromoAndSynergy() {
+      const pbox = document.getElementById("promo-codes-list");
+      if (pbox) {
+        pbox.innerHTML = PROMO_CODES.map(c => `
+          <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between gap-2">
+            <div class="min-w-0">
+              <div class="text-xs font-extrabold text-emerald-300 truncate">${c.code}</div>
+              <div class="text-[11px] text-slate-400 truncate">${c.reward}</div>
+            </div>
+            <button data-code="${c.code}" class="copy-code-btn shrink-0 px-2.5 py-1.5 rounded-lg bg-emerald-600/80 hover:bg-emerald-500 text-white text-[11px] font-bold">Копировать</button>
+          </div>
+        `).join("");
+      }
+      const sel = document.getElementById("synergy-race-select");
+      const out = document.getElementById("synergy-output");
+      if (sel && out) {
+        const rname = sel.value || "Demon";
+        const syn = RACE_SYNERGY[rname] || RACE_SYNERGY["Human"];
+        out.innerHTML = `
+          <div class="p-3 rounded-xl bg-slate-900/85 border border-slate-800"><div class="text-orange-400 font-bold mb-1">⚔️ Оружие</div><div class="text-slate-200">${syn.weapon}</div></div>
+          <div class="p-3 rounded-xl bg-slate-900/85 border border-slate-800"><div class="text-rose-400 font-bold mb-1">🔥 Руды в оружие</div><div class="text-slate-200">${syn.wOres}</div></div>
+          <div class="p-3 rounded-xl bg-slate-900/85 border border-slate-800"><div class="text-sky-400 font-bold mb-1">🛡️ Руды в броню</div><div class="text-slate-200">${syn.aOres}</div></div>
+        `;
+      }
     }
 
     function renderRaces() {
@@ -984,21 +1140,34 @@
     }
 
     function renderMeta() {
-      document.getElementById("meta-list").innerHTML = META_BUILDS.map((b, idx) => {
+      const list = META_BUILDS.map((b, idx) => ({ b, idx })).filter(({ b }) => {
+        const wm = state.metaWorld === "ALL" || b.w === state.metaWorld;
+        const gm = state.metaGear === "ALL" || b.gear === state.metaGear;
+        return wm && gm;
+      });
+      document.getElementById("meta-list").innerHTML = list.map(({ b, idx }) => {
+        let tot = 0, sumM = 0;
         const rows = b.items.map(([name, need]) => {
           const have = state.inv[name] || 0;
           const ok = have >= need;
           const o = oreByName(name);
+          tot += need;
+          sumM += (o ? o.m : 1) * need;
           return `<div class="flex justify-between items-center text-xs ${ok ? 'text-emerald-400' : 'text-slate-300'}">
             <span class="inline-flex items-center gap-1.5">${o ? oreIconSVG(o, 16) : ''} ${need}x ${name} <span class="text-slate-500">(${o ? o.src : ''})</span></span>
             <span class="font-bold">${have}/${need}</span>
           </div>`;
         }).join("");
+        const avgM = tot > 0 ? (sumM / tot).toFixed(2) : "0.00";
+        const gIcon = b.gear === "set" ? "✨🛡️" : (b.gear === "armor" ? "🛡️" : "⚔️");
         return `
-          <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2">
+          <div class="p-3.5 rounded-xl bg-slate-900/85 border border-slate-800 hover:border-orange-500/40 transition space-y-2">
             <div class="flex items-center justify-between gap-2">
-              <h3 class="text-sm font-bold text-white">${b.title}</h3>
-              <button data-meta="${idx}" class="load-meta-btn text-[11px] px-2.5 py-1 rounded-lg bg-orange-600/85 hover:bg-orange-500 text-white font-semibold">В тигель</button>
+              <div class="min-w-0">
+                <h3 class="text-sm font-bold text-white truncate">${gIcon} ${b.title}</h3>
+                <span class="text-[11px] font-bold text-orange-400">Множитель: ${avgM}x</span>
+              </div>
+              <button data-meta="${idx}" class="load-meta-btn shrink-0 text-[11px] px-2.5 py-1 rounded-lg bg-orange-600/85 hover:bg-orange-500 text-white font-semibold">В тигель</button>
             </div>
             <p class="text-xs text-slate-400">${b.note}</p>
             <div class="space-y-1.5 pt-1.5 border-t border-slate-800">${rows}</div>
@@ -1151,6 +1320,14 @@
         renderPickaxes();
       });
 
+      const synSel = document.getElementById("synergy-race-select");
+      synSel.innerHTML = RACES.map(r => `<option value="${r.name}">${r.name} (${r.tier}-тир)</option>`).join("");
+      synSel.addEventListener("change", renderPromoAndSynergy);
+      document.getElementById("promo-codes-list").addEventListener("click", e => {
+        const btn = e.target.closest(".copy-code-btn");
+        if (btn) copyTextSafe(btn.dataset.code);
+      });
+
       document.getElementById("race-tier-filters").addEventListener("click", e => {
         const btn = e.target.closest(".rt-btn");
         if (!btn) return;
@@ -1163,6 +1340,29 @@
         renderRaces();
       });
 
+      document.getElementById("meta-filters").addEventListener("click", e => {
+        const mw = e.target.closest(".mw-btn");
+        const mg = e.target.closest(".mg-btn");
+        if (mw) {
+          state.metaWorld = mw.dataset.mw;
+          document.querySelectorAll(".mw-btn").forEach(b => {
+            b.classList.toggle("bg-orange-500", b === mw);
+            b.classList.toggle("text-white", b === mw);
+            b.classList.toggle("bg-slate-800", b !== mw);
+          });
+          renderMeta();
+        } else if (mg) {
+          state.metaGear = (state.metaGear === mg.dataset.mg) ? "ALL" : mg.dataset.mg;
+          document.querySelectorAll(".mg-btn").forEach(b => {
+            const on = b.dataset.mg === state.metaGear;
+            b.classList.toggle("bg-orange-500", on);
+            b.classList.toggle("text-white", on);
+            b.classList.toggle("bg-slate-800", !on);
+          });
+          renderMeta();
+        }
+      });
+
       document.getElementById("meta-list").addEventListener("click", e => {
         const btn = e.target.closest(".load-meta-btn");
         if (!btn) return;
@@ -1170,7 +1370,7 @@
         state.inv = {};
         let total = 0;
         for (const [n, c] of b.items) { state.inv[n] = c; total += c; }
-        state.gear = b.gear;
+        state.gear = (b.gear === "set") ? "armor" : b.gear;
         state.target = total;
         document.getElementById("target-count").value = total;
         saveInv();
@@ -1237,4 +1437,3 @@
   </script>
 </body>
 </html>
-```
