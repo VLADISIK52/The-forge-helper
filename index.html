@@ -62,6 +62,25 @@
     .ore-card { content-visibility: auto; contain-intrinsic-size: 62px; }
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-thumb { background: #334155; border-radius: 9999px; }
+      .hud-slot {
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.9), rgba(9, 11, 16, 0.95));
+      border: 1px dashed rgba(148, 163, 184, 0.25);
+    }
+    .hud-slot-filled {
+      background: linear-gradient(180deg, rgba(30, 41, 59, 0.85), rgba(15, 23, 42, 0.95));
+      border: 1px solid rgba(249, 115, 22, 0.45);
+    }
+    .rare-strip { height: 3px; width: 100%; border-radius: 9999px; opacity: 0.85; }
+    .forge-card-pro {
+      background: linear-gradient(165deg, rgba(30, 36, 54, 0.92), rgba(13, 17, 26, 0.96));
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      transform: translateZ(0);
+    }
+    .btn-molten {
+      background: linear-gradient(135deg, #fb923c 0%, #f97316 45%, #dc2626 100%);
+      box-shadow: 0 6px 20px rgba(249, 115, 22, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    }
   </style>
   <link rel="manifest" href="manifest.json" />
   <script>if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js');}</script>
@@ -88,19 +107,28 @@
   </header>
 
   <main class="max-w-6xl mx-auto px-4 pt-4 space-y-5">
-    <!-- Hero Banner -->
-    <div class="relative rounded-2xl overflow-hidden border border-orange-500/20 shadow-2xl h-32 sm:h-40">
-      <div class="w-full h-full bg-gradient-to-br from-orange-950/70 via-slate-900 to-red-950/60"></div>
-      <div class="absolute inset-0 bg-gradient-to-r from-[#090b10] via-[#090b10]/70 to-transparent flex items-center px-5 sm:px-7">
-        <div class="max-w-md space-y-1">
-          <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-orange-500/20 border border-orange-500/40 text-[11px] font-bold text-orange-300">ROBLOX: THE FORGE</div>
-          <h2 class="text-lg sm:text-2xl font-extrabold text-white tracking-tight">Кузница идеальных билдов</h2>
-          <p class="text-xs text-slate-300">109 руд, 22 кирки, 13 рас и точный расчёт DPS в одном месте</p>
+    <!-- Game HUD Banner -->
+    <div class="relative rounded-2xl overflow-hidden border border-orange-500/35 bg-gradient-to-r from-[#1c1018] via-[#141928] to-[#0c101a] p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-2xl">
+      <canvas id="ember-canvas" class="absolute inset-0 w-full h-full pointer-events-none opacity-75"></canvas>
+      <div class="relative z-10 space-y-1">
+        <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-orange-500/15 border border-orange-500/40 text-[10px] font-bold tracking-wider text-orange-300 uppercase">⚒️ Roblox: The Forge • W1–W4</div>
+        <h2 class="text-xl sm:text-2xl font-extrabold text-white tracking-tight">Кузница идеальных билдов</h2>
+        <p class="text-xs text-slate-400">Выбирай руды в 4 слота тигля, смотри силу трейтов (10–30%) и сравнивай реальный DPS</p>
+      </div>
+      <div class="relative z-10 flex items-center gap-2.5 shrink-0">
+        <div class="px-3 py-2 rounded-xl bg-slate-900/90 border border-slate-800 text-center min-w-[74px]">
+          <div class="text-[10px] text-slate-400 uppercase font-semibold">Руд</div>
+          <div class="text-base font-extrabold text-orange-400">109</div>
+        </div>
+        <div class="px-3 py-2 rounded-xl bg-slate-900/90 border border-slate-800 text-center min-w-[74px]">
+          <div class="text-[10px] text-slate-400 uppercase font-semibold">Кирок</div>
+          <div class="text-base font-extrabold text-sky-400">22</div>
+        </div>
+        <div class="px-3 py-2 rounded-xl bg-slate-900/90 border border-slate-800 text-center min-w-[74px]">
+          <div class="text-[10px] text-slate-400 uppercase font-semibold">Рас</div>
+          <div class="text-base font-extrabold text-purple-400">13</div>
         </div>
       </div>
-      <div class="ember" style="left:22%; bottom:12%; animation-delay:0s;"></div>
-      <div class="ember" style="left:45%; bottom:18%; animation-delay:0.6s;"></div>
-      <div class="ember" style="left:68%; bottom:10%; animation-delay:1.2s;"></div>
     </div>
 
     <!-- TAB 1: CRUCIBLE & OPTIMIZER -->
@@ -151,15 +179,18 @@
               </div>
             </div>
             <div id="gear-prediction" class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 text-xs text-slate-300 flex items-center gap-3"></div>
-            <button id="btn-optimize" class="w-full py-3 rounded-xl font-bold text-sm bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-400 hover:to-red-500 text-white shadow-lg shadow-orange-500/25 forge-glow transition">✨ Подобрать лучший рецепт</button>
+            <button id="btn-optimize" class="w-full py-3 rounded-xl font-bold text-sm btn-molten text-white transition">✨ Подобрать лучший рецепт</button>
           </div>
 
-          <div class="glass rounded-2xl p-4 space-y-2">
+          <div class="glass rounded-2xl p-4 space-y-3">
             <div class="flex items-center justify-between">
-              <span class="text-sm font-bold text-white">Выбранные руды</span>
-              <span id="selected-total-badge" class="text-xs px-2 py-0.5 rounded-full bg-slate-800 text-orange-400 font-semibold">0 шт.</span>
+              <span class="text-sm font-bold text-white">🔥 Слоты тигля (до 4 видов)</span>
+              <div class="flex items-center gap-2">
+                <span id="crucible-mult-badge" class="text-xs px-2 py-0.5 rounded-lg bg-orange-500/15 text-orange-300 border border-orange-500/30 font-bold">0.00x</span>
+                <span id="selected-total-badge" class="text-xs px-2 py-0.5 rounded-lg bg-slate-800 text-slate-300 font-semibold">0 шт.</span>
+              </div>
             </div>
-            <div id="selected-chips" class="flex flex-wrap gap-1.5 text-xs text-slate-400">Ничего не выбрано — нажмите + слева</div>
+            <div id="selected-chips" class="grid grid-cols-2 gap-2 text-xs text-slate-400"></div>
           </div>
         </div>
       </div>
@@ -312,16 +343,16 @@
       "Exotic": "#e879f9"
     };
 
-    function oreIconSVG(o, size = 26) {
+    function oreIconSVG(o, size = 28) {
       const col = RARITY_HEX[o.r] || "#94a3b8";
       const n = o.name.toLowerCase();
       if (n.includes("heart") || n.includes("orb") || n.includes("eye") || n.includes("cat")) {
-        return `<svg width="${size}" height="${size}" viewBox="0 0 32 32" class="shrink-0"><path d="M16 27s-9.5-6.2-11.2-12.1C3.5 10.4 6.6 6 11 6c2.4 0 4.1 1.4 5 2.8C16.9 7.4 18.6 6 21 6c4.4 0 7.5 4.4 6.2 8.9C25.5 20.8 16 27 16 27z" fill="${col}" fill-opacity="0.28" stroke="${col}" stroke-width="2"/><circle cx="16" cy="15" r="3" fill="${col}"/></svg>`;
+        return `<svg width="${size}" height="${size}" viewBox="0 0 32 32" class="shrink-0"><circle cx="16" cy="16" r="14" fill="${col}" fill-opacity="0.12"/><path d="M16 26s-8.5-5.6-10-11C4.8 10.8 7.5 6.8 11.5 6.8c2.2 0 3.7 1.2 4.5 2.5.8-1.3 2.3-2.5 4.5-2.5 4 0 6.7 4 5.5 8.2-1.5 5.4-10 11-10 11z" fill="${col}" fill-opacity="0.35" stroke="${col}" stroke-width="1.8"/><path d="M11 10.5c1.2-1.2 2.8-1 3.5 0" stroke="#fff" stroke-width="1.3" stroke-linecap="round" opacity="0.7"/><circle cx="16" cy="15.5" r="2.8" fill="${col}"/></svg>`;
       }
       if (n.includes("crystal") || n.includes("ice") || n.includes("void") || n.includes("star") || n.includes("onyx") || n.includes("ruby") || n.includes("diamond")) {
-        return `<svg width="${size}" height="${size}" viewBox="0 0 32 32" class="shrink-0"><polygon points="16,3 25,11 21,28 11,28 7,11" fill="${col}" fill-opacity="0.25" stroke="${col}" stroke-width="2"/><polyline points="16,3 16,28" stroke="${col}" stroke-width="1.3" opacity="0.7"/></svg>`;
+        return `<svg width="${size}" height="${size}" viewBox="0 0 32 32" class="shrink-0"><circle cx="16" cy="16" r="14" fill="${col}" fill-opacity="0.10"/><polygon points="16,3 25,11 21,28 11,28 7,11" fill="${col}" fill-opacity="0.3" stroke="${col}" stroke-width="1.8"/><polygon points="16,3 25,11 16,15 7,11" fill="#fff" fill-opacity="0.18"/><polyline points="16,3 16,28" stroke="${col}" stroke-width="1.2" opacity="0.8"/></svg>`;
       }
-      return `<svg width="${size}" height="${size}" viewBox="0 0 32 32" class="shrink-0"><polygon points="10,6 22,6 27,15 21,26 11,26 5,15" fill="${col}" fill-opacity="0.24" stroke="${col}" stroke-width="2"/><polygon points="12,10 20,10 22,15 16,22 10,15" fill="${col}" fill-opacity="0.4"/></svg>`;
+      return `<svg width="${size}" height="${size}" viewBox="0 0 32 32" class="shrink-0"><circle cx="16" cy="16" r="14" fill="${col}" fill-opacity="0.10"/><polygon points="10,6 22,6 27,15 21,26 11,26 5,15" fill="${col}" fill-opacity="0.28" stroke="${col}" stroke-width="1.8"/><polygon points="10,6 22,6 19,12 13,12" fill="#fff" fill-opacity="0.2"/><polygon points="12,11 20,11 22,16 16,22 10,16" fill="${col}" fill-opacity="0.45"/></svg>`;
     }
 
     function weaponIconSVG(kind, size = 30) {
@@ -698,16 +729,26 @@
     function renderSelectedSummary() {
       const entries = Object.entries(state.inv).filter(([, q]) => q > 0);
       const total = entries.reduce((s, [, q]) => s + q, 0);
+      const sumM = entries.reduce((s, [n, q]) => s + ((oreByName(n)?.m || 0) * q), 0);
+      const avgM = total > 0 ? (sumM / total) : 0;
       document.getElementById("selected-total-badge").textContent = `${total} шт.`;
+      document.getElementById("crucible-mult-badge").textContent = `${avgM.toFixed(2)}x`;
       const box = document.getElementById("selected-chips");
-      if (entries.length === 0) {
-        box.innerHTML = `<span class="text-slate-500">Ничего не выбрано — нажмите + слева</span>`;
-      } else {
-        box.innerHTML = entries.map(([n, q]) => {
+      const slots = [];
+      for (let i = 0; i < 4; i++) {
+        if (entries[i]) {
+          const [n, q] = entries[i];
           const o = oreByName(n);
-          return `<span class="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-slate-800 text-slate-200 border border-slate-700">${o ? oreIconSVG(o, 16) : ''}<span>${q}x <b>${n}</b> <span class="text-orange-400">(${o ? o.m : 1}x)</span></span></span>`;
-        }).join("");
+          const pct = total > 0 ? Math.round((q / total) * 100) : 0;
+          slots.push(`<div class="hud-slot-filled rounded-xl p-2 flex items-center gap-2 min-w-0">${o ? oreIconSVG(o, 22) : ''}<div class="min-w-0 flex-1"><div class="text-[11px] font-bold text-white truncate">${q}x ${n}</div><div class="text-[10px] text-orange-300">${o ? o.m : 1}x • ${pct}%</div></div></div>`);
+        } else {
+          slots.push(`<div class="hud-slot rounded-xl p-2 flex items-center justify-center text-[11px] text-slate-600 min-h-[46px]">Слот ${i + 1}</div>`);
+        }
       }
+      if (entries.length > 4) {
+        slots.push(`<div class="col-span-2 text-[11px] text-amber-400/90 text-center">+ ещё ${entries.length - 4} вид(ов) в запасе (подбор выберет лучшие 4)</div>`);
+      }
+      box.innerHTML = slots.join("");
     }
 
     function renderPresets() {
@@ -1150,6 +1191,46 @@
       renderSelectedSummary();
       renderPresets();
       updateDps();
+      startEmbers();
+    }
+
+    function startEmbers() {
+      const cv = document.getElementById("ember-canvas");
+      if (!cv || !cv.getContext) return;
+      const ctx = cv.getContext("2d");
+      let w = 0, h = 0;
+      const resize = () => {
+        w = cv.width = cv.offsetWidth || 600;
+        h = cv.height = cv.offsetHeight || 120;
+      };
+      resize();
+      window.addEventListener("resize", resize);
+      const pts = Array.from({ length: 22 }, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: 1 + Math.random() * 2,
+        vy: 0.4 + Math.random() * 0.9,
+        vx: (Math.random() - 0.5) * 0.4,
+        a: 0.3 + Math.random() * 0.7
+      }));
+      let last = 0;
+      function tick(ts) {
+        if (!document.hidden && ts - last > 33) {
+          last = ts;
+          ctx.clearRect(0, 0, w, h);
+          for (const p of pts) {
+            p.y -= p.vy;
+            p.x += p.vx;
+            if (p.y < -4) { p.y = h + 4; p.x = Math.random() * w; }
+            ctx.fillStyle = `rgba(251, 146, 60, ${p.a})`;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
     }
 
     window.addEventListener("DOMContentLoaded", init);
