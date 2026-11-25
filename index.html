@@ -117,7 +117,7 @@
       <div class="relative z-10 flex items-center gap-2.5 shrink-0">
         <div class="px-3 py-2 rounded-xl bg-slate-900/90 border border-slate-800 text-center min-w-[74px]">
           <div class="text-[10px] text-slate-400 uppercase font-semibold">Руд</div>
-          <div class="text-base font-extrabold text-orange-400">109</div>
+          <div class="text-base font-extrabold text-orange-400">110</div>
         </div>
         <div class="px-3 py-2 rounded-xl bg-slate-900/90 border border-slate-800 text-center min-w-[74px]">
           <div class="text-[10px] text-slate-400 uppercase font-semibold">Кирок</div>
@@ -306,7 +306,7 @@
       <div class="glass rounded-2xl p-4 space-y-4">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <h2 class="text-base font-bold text-white">Топовые сборки W1–W4 и план фарма (40 рецептов)</h2>
+            <h2 class="text-base font-bold text-white">Топовые сборки W1–W4 и план фарма (44 рецепта)</h2>
             <p class="text-xs text-slate-400">Сверяет с вашими выбранными рудами и показывает средний множитель</p>
           </div>
           <div class="flex flex-wrap gap-1.5" id="meta-filters">
@@ -458,6 +458,7 @@
       { name: "Demonite", w: "W2", r: "Mythical", m: 5.50, t: "both", tag: "dps", desc: "15% поджог при атаке и 25% при получении урона", src: "Volcanic Rock", dmg: 0 },
       { name: "Darkryte", w: "W2", r: "Mythical", m: 6.30, t: "armor", tag: "tank", desc: "15% шанс уклониться от удара", src: "Volcanic Rock", dmg: 0 },
       { name: "Arcane Crystal", w: "W2-Goblin", r: "Epic", m: 7.50, t: "none", tag: "none", desc: "Нет", src: "Goblin Cave (1/100k)", dmg: 0 },
+      { name: "Galaxite", w: "W1-W4", r: "Divine", m: 11.50, t: "none", tag: "none", desc: "Нет (огромный чистый множитель)", src: "Любой камень (1/1,000,000)", dmg: 0 },
       // W3
       { name: "Tungsten", w: "W3", r: "Common", m: 2.60, t: "none", tag: "none", desc: "Нет", src: "Icy Pebble/Rock/Boulder", dmg: 0 },
       { name: "Sulfur", w: "W3", r: "Uncommon", m: 2.75, t: "none", tag: "none", desc: "Нет", src: "Icy Pebble/Rock/Boulder", dmg: 0 },
@@ -594,7 +595,13 @@
     const PROMO_CODES = [
       { code: "AIDASAYSSORRY", reward: "10–15 Race Rerolls", status: "Активен" },
       { code: "SORRYFORBUGS!!!", reward: "10–15 Race Rerolls (три «!»)", status: "Активен" },
-      { code: "SORRYFORSHUTDOWNN!", reward: "15 Race Rerolls (две «N» и «!»)", status: "Проверить" }
+      { code: "SORRYFORSHUTDOWNN!", reward: "15 Race Rerolls (две «N» и «!»)", status: "Активен" },
+      { code: "FIRSTADMINEVENT", reward: "25x Race Rerolls (проверить)", status: "Проверить" },
+      { code: "PRISMATICSHARDS", reward: "1000x Twilight Shard (проверить)", status: "Проверить" },
+      { code: "90KCCU", reward: "15x Race Rerolls (проверить)", status: "Проверить" },
+      { code: "FORGG", reward: "15x Race Rerolls (проверить)", status: "Проверить" },
+      { code: "TWILIGHTWAR", reward: "15x Race Rerolls (проверить)", status: "Проверить" },
+      { code: "FORGECOMEBACK", reward: "10x Race Rerolls (проверить)", status: "Проверить" }
     ];
 
     const WEAPON_GALLERY = [
@@ -716,7 +723,12 @@
       { w: "W3", title: "Сет W3 | Ледяной Рыцарь (35 руд)", gear: "set", items: [["Etherealite", 17], ["Velchire", 11], ["Sanctis", 7]], note: "Цельный бело-голубой ледяной сет: +35% HP, +20% скорости и стамина" },
       { w: "W3", title: "Сет W3 | Багровый Ворон (35 руд)", gear: "set", items: [["Duranite", 17], ["Heart Of The Island", 11], ["Evil Eye", 7]], note: "Мрачный рубиновый сет с огромным HP, снижением урона и берсерком" },
       { w: "W4", title: "Сет W4 | Бамбуковый Нефрит (35 руд)", gear: "set", items: [["Cyanite Jade Ore", 18], ["Blue Gem Quill Ore", 17]], note: "Стильный бирюзовый эпик-сет без мификов: +20% HP, прыжок и рывок" },
-      { w: "W4", title: "Сет W4 | Небесная Сакура (35 руд)", gear: "set", items: [["Heavenly Orb Ore", 14], ["Azuryxite Ore", 14], ["Sakuranite Ore", 7]], note: "Элитный золотисто-лазурный сет 4-го мира: реген, +HP и 40% отражения" }
+      { w: "W4", title: "Сет W4 | Небесная Сакура (35 руд)", gear: "set", items: [["Heavenly Orb Ore", 14], ["Azuryxite Ore", 14], ["Sakuranite Ore", 7]], note: "Элитный золотисто-лазурный сет 4-го мира: реген, +HP и 40% отражения" },
+      // === НОВЫЕ ТОПОВЫЕ КРАФТЫ (GAMEZEBO) ===
+      { w: "W2", title: "W2 | 5-трейтовый микс (12 руд)", gear: "weapon", items: [["Eye Ore", 3], ["Fireite", 3], ["Magmaite", 3], ["Rivalite", 3]], note: "72% Катана: +11.6% урона, -7.7% HP, ожог, взрыв и +15.5% крит" },
+      { w: "W2", title: "W2 | Колоссал без штрафа HP (45 руд)", gear: "weapon", items: [["Darkryte", 15], ["Demonite", 15], ["Magmaite", 15]], note: "68% Колоссал (30% Секира): 35% шанс на 50% AoE-взрыв без порезки HP" },
+      { w: "W2", title: "W2 | Мифическая Катана Galaxite (12 руд)", gear: "weapon", items: [["Magmaite", 5], ["Galaxite", 3], ["Demonite", 2], ["Fireite", 2]], note: "72% Катана (6.63x): 35% шанс на 50% AoE-взрыв и 12% шанс на ожог" },
+      { w: "W2", title: "W2 | Божественный Колоссал (40 руд)", gear: "weapon", items: [["Galaxite", 10], ["Darkryte", 10], ["Fireite", 10], ["Magmaite", 10]], note: "65% Колоссал (6.83x): AoE-взрыв 38.75% и ожог 15.50%" }
     ];
 
     const CLASS_REFERENCE = [
